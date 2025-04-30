@@ -52,7 +52,7 @@ Each rule starts with the keyword `case` and 5 expressions:
 - `<State>` - The current state of the Machine,
 - `<Read>` - What the Machine reads on the Tape,
 - `<Write>` - What the Machine should write on the Tape,
-- `<Step>` - Where the Head of the Machine must step (`<-` left, `->` right or `.` stand),
+- `<Step>` - Where the Head of the Machine must step (`<-` left, `->` right, `.` stand, or `!` stand and print),
 - `<Next>` - What is the next state of the Machine.
 
 ### Example
@@ -113,6 +113,26 @@ Loop: a b c 0 0 1 0
 Loop: a b c 0 0 0 0
                   ^
 ```
+
+Also, you can use `run` to avoid print all the traces, and use `!` as step when you need to print the current tape.
+```js
+let Bits { 0 1 }
+
+case Inc 0 1 -> Print_and_Halt
+case Inc 1 0 -> Print
+
+for b in Bits {
+  case Entry b b ! Inc
+  case Print b b ! Inc
+  case Print_and_Halt b b ! Halt
+}
+
+run Entry { 0 0 0 1 0 }
+run Entry { 1 1 1 0 }
+```
+
+
+
 
 ## Compound Expressions
 

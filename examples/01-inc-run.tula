@@ -1,0 +1,13 @@
+let Bits { 0 1 }
+
+case Inc 0 1 -> Print_and_Halt
+case Inc 1 0 -> Print
+
+for b in Bits {
+  case Entry b b ! Inc
+  case Print b b ! Inc
+  case Print_and_Halt b b ! Halt
+}
+
+run Entry { 0 0 0 1 0 }
+run Entry { 1 1 1 0 }
